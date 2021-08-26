@@ -1,21 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { Text, View } from "react-native";
+import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 
 export default function App() {
+  const [visible, setVisible] = useState(false);
+
+  const hideMenu = () => setVisible(false);
+
+  const showMenu = () => setVisible(true);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View
+      style={{ height: "100%", alignItems: "center", justifyContent: "center" }}
+    >
+      <Menu
+        visible={visible}
+        anchor={<Text onPress={showMenu}>Show menu</Text>}
+        onRequestClose={hideMenu}
+      >
+        <MenuItem onPress={hideMenu}>Menu item 1</MenuItem>
+        <MenuItem onPress={hideMenu}>Menu item 2</MenuItem>
+        <MenuItem disabled>Disabled item</MenuItem>
+        <MenuDivider />
+        <MenuItem onPress={hideMenu}>Menu item 4</MenuItem>
+      </Menu>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
